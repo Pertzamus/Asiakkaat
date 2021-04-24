@@ -1,8 +1,5 @@
 th { 
-	display: block;
-	width: 100px;
-	float: left;
-    text-align: center; 
+ 
     background-color: #67ce00;
 }
 
@@ -12,9 +9,6 @@ body {
 }
 
 td {
-	display: block;
-	width: 100px;
-	float: left;
-    text-align: center; 
+ 
 	background-color: #0080ff;
 }
