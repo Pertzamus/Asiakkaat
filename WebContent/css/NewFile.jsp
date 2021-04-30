@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="css/Main.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
 <script 
 src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
 </script>
@@ -18,9 +18,6 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
 <body>
 <table id ="listaus">
 	<thead>
-	<tr>
-			<th colspan="5" class="oikealle"><span id="uusiAsiakas">Lisää uusi Asiakas</span></th>
-		</tr>
 	<tr>
 		<th class="oikealle">Hakusana:</th>
 		<th colspan="2"><input type="text" id="hakusana"></th>
@@ -40,11 +37,6 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
 <script>
 $(document).ready(function(){
 	
-	$("#uusiAsiakas").click(function(){
-		document.location="lisaaasiakas.jsp";
-		
-	});
-		
 	haeAsiakkaat();
 	$("#hakunappi").click(function(){
 			haeAsiakkaat();
@@ -68,24 +60,10 @@ function haeAsiakkaat() {
         	htmlStr+="<td>"+field.sukunimi+"</td>";
         	htmlStr+="<td>"+field.puhelin+"</td>";
         	htmlStr+="<td>"+field.sposti+"</td>";  
-        	htmlStr+="<td><span class='poista' onclick=poista('"+field.etunimi+"')>Poista</span></td>";
         	htmlStr+="</tr>";
         	$("#listaus tbody").append(htmlStr);
         });	
     }});}
-function poista(etunimi){
-	if(confirm("Poista asiakas " + etunimi +"?")){
-		$.ajax({url:"asiakkaat/"+etunimi, type:"DELETE", dataType:"json", success:function(result) { 
-	        if(result.response==0){
-	        	$("#ilmo").html("Asiakkaan poisto epäonnistui.");
-	        }else if(result.response==1){
-	        	$("#rivi_"+etunimi).css("background-color", "red"); //Värjätään poistetun asiakkaan rivi
-	        	alert("Asiakkaan " + etunimi +" poisto onnistui.");
-				haeAsiakkaat();        	
-			}
-	    }});
-	} 
-}
 </script>
 </body>
 </html>
