@@ -15,6 +15,6 @@ function formDataJsonStr(formArray) {
 		returnArray[formArray[i]['name']] = formArray[i]['value'];
 	}
 	return JSON.stringify(returnArray);
-}/**
- * 
- */
+}
+
+
