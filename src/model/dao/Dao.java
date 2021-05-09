@@ -108,13 +108,13 @@ public class Dao {
 		return paluuArvo;
 	}
 	
-	public boolean poistaAsiakas(int asiakas_id) {
+	public boolean poistaAsiakas(String etunimi) {
 		boolean paluuArvo=true;
-		sql="DELETE FROM asiakkaat WHERE asiakas_id=?";						  
+		sql="DELETE FROM asiakkaat WHERE etunimi=?";						  
 		try {
 			con = yhdista();
 			stmtPrep=con.prepareStatement(sql); 
-			stmtPrep.setInt(1, asiakas_id);			
+			stmtPrep.setString(1, etunimi);
 			stmtPrep.executeUpdate();
 	        con.close();
 		} catch (Exception e) {				

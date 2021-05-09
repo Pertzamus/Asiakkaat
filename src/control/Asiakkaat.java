@@ -28,13 +28,16 @@ public class Asiakkaat extends HttpServlet {
 		Dao dao = new Dao();
 		ArrayList<Asiakas> asiakkaat;
 		String strJSON="";
-		if(pathInfo==null) { //Haetaan kaikki autot 
+		if(pathInfo==null) {  
 			asiakkaat = dao.listaaKaikki();
-			strJSON = new JSONObject().put("autot", asiakkaat).toString();	
+			strJSON = new JSONObject().put("asiakkaat", asiakkaat).toString();	
 		}
         else if(pathInfo.indexOf("haeyksi")!=-1) {		
 			String etunimi = pathInfo.replace("/haeyksi/", ""); //poistetaan polusta "/haeyksi/", j‰ljelle j‰‰ rekno		
 			Asiakas asiakas = dao.etsiAsiakas(etunimi);
+			if(asiakas==null) {
+				strJSON = "{]";
+			} else {
 			JSONObject JSON = new JSONObject();
 			JSON.put("etunimi", asiakas.getEtunimi());
 			JSON.put("sukunimi", asiakas.getSukunimi());
@@ -42,7 +45,7 @@ public class Asiakkaat extends HttpServlet {
 			JSON.put("sposti", asiakas.getSposti());	
 			strJSON = JSON.toString();		
 		}
-        else{ 
+        } else{ 
 			String hakusana = pathInfo.replace("/", "");
 			asiakkaat = dao.listaaKaikki(hakusana);
 			strJSON = new JSONObject().put("asiakkaat", asiakkaat).toString();	
@@ -92,11 +95,12 @@ public class Asiakkaat extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Asiakkaat.doDelete()");	
 		String pathInfo = request.getPathInfo();			
-		int asiakas_id = Integer.parseInt(pathInfo.replace("/", "")); 	
-		Dao dao = new Dao();
+		String etunimi = pathInfo.replace("/", "");
+		System.out.println("polku: "+pathInfo);
 		response.setContentType("application/json");
-		PrintWriter out = response.getWriter();		    
-		if(dao.poistaAsiakas(asiakas_id)){ //metodi palauttaa true/false
+		PrintWriter out = response.getWriter();
+		Dao dao = new Dao();		    
+		if(dao.poistaAsiakas(etunimi)){ //metodi palauttaa true/false
 			out.println("{\"response\":1}"); //Asiakkaan poisto onnistui {"response":1}
 		}else {
 			out.println("{\"response\":0}"); //Asiakkaan poisto ep‰onnistui {"response":0}

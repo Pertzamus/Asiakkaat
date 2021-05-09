@@ -1,0 +1,2 @@
+En saanut poistamaan asiakas_id:llä muutettuani sen javascriptiin, joten se nyt poistaa etunimen mukaan.
+Tällöin se poistaa kaikki samalla etunimellä alkavat asiakkaat, mutta en keksinyt muuta ratkaisua.
